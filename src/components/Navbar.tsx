@@ -16,10 +16,12 @@ export default function Navbar() {
   const altPath = pathname.replace(/^\/(en|ar)(\/|$)/, `/${altLocale}$2`) || `/${altLocale}`
 
   const navLinks = [
-    { href: `/${locale}/about`,    label: t.nav.about    },
-    { href: `/${locale}/services`, label: t.nav.services },
-    { href: `/${locale}/projects`, label: t.nav.projects },
-    { href: `/${locale}/clients`,  label: t.nav.clients  },
+    { href: `/${locale}/about`,          label: t.nav.about          },
+    { href: `/${locale}/services`,       label: t.nav.services       },
+    { href: `/${locale}/projects`,       label: t.nav.projects       },
+    { href: `/${locale}/clients`,        label: t.nav.clients        },
+    { href: `/${locale}/collaboration`,  label: t.nav.collaboration  },
+    { href: `/${locale}/awards`,         label: t.nav.awards         },
   ]
 
   useEffect(() => {
