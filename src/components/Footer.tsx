@@ -38,7 +38,14 @@ export default function Footer() {
               <p className="text-void/60 text-sm leading-[1.9]">
                 Riyadh, Saudi Arabia<br />
                 hello@amal-studio.com<br />
-                TEL. +966 11 000 0000
+                TEL. <a
+                  href="https://wa.me/966555182278"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-void transition-colors duration-300"
+                >
+                  +966 55 518 2278
+                </a>
               </p>
               <Link
                 href="https://maps.app.goo.gl/vWZMinYyYpDGY7Aq9"

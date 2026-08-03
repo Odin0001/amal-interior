@@ -19,7 +19,7 @@ export type GalleryProject = {
   url: string;
 };
 
-type ItemData = { el: HTMLDivElement; img: HTMLImageElement; x: number; y: number; data: GalleryProject };
+type ItemData = { el: HTMLDivElement; img: HTMLImageElement; label: HTMLDivElement; x: number; y: number; data: GalleryProject };
 
 export default function GalleryGrid({
   projects,
@@ -105,9 +105,15 @@ export default function GalleryGrid({
         img.draggable = false;
         img.style.cssText = "width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none;";
         el.appendChild(img);
+
+        const label = document.createElement("div");
+        label.style.cssText = "position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(to top, rgba(0,0,0,0.75), transparent);color:#f5f0eb;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;pointer-events:none;";
+        label.textContent = data.title;
+        el.appendChild(label);
+
         grid.appendChild(el);
 
-        items.push({ el, img, x, y, data });
+        items.push({ el, img, label, x, y, data });
         idx++;
       }
     }
@@ -203,7 +209,16 @@ export default function GalleryGrid({
 
     function onKey(e: KeyboardEvent) { if (e.key === "Escape") exit(); }
 
-    items.forEach((item) => item.el.addEventListener("click", () => enter(item)));
+    items.forEach((item) => {
+      item.el.addEventListener("click", () => enter(item));
+      item.el.addEventListener("mouseenter", () => {
+        if (active) return;
+        gsap.to(item.label, { opacity: 1, duration: 0.25, ease: "power1.out" });
+      });
+      item.el.addEventListener("mouseleave", () => {
+        gsap.to(item.label, { opacity: 0, duration: 0.25, ease: "power1.out" });
+      });
+    });
     closeBtnEl.addEventListener("click", exit);
     splitEl.addEventListener("click", exit);
 

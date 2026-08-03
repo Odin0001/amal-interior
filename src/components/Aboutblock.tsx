@@ -1,63 +1,50 @@
 import { About3 } from "@/components/blocks/about-3";
+import { listFeaturedProjects } from "@/lib/db/queries";
+import type { Locale } from "@/lib/translations";
 
-const AboutBlock = () => {
+const AboutBlock = async ({ lang }: { lang: Locale }) => {
+  const isAr = lang === "ar";
+  const featured = await listFeaturedProjects(3);
+
   return (
     <About3
       title=""
       description=""
-      mainImage={{
-        src: "hero.jpg",
-        alt: "placeholder",
-      }}
-      secondaryImage={{
-        src: "hero.jpg",
-        alt: "placeholder",
-      }}
-      breakout={{
-        src: "hero.jpg",
-        alt: "logo",
-        title: "some title here",
-        description:
-          "medium sized description here",
-        buttonText: "Discover more",
-        buttonUrl: "https://shadcnblocks.com",
-      }}
-      companiesTitle="Valued by clients worldwide"
-      companies={[
-        {
-          src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-1.svg",
-          alt: "Arc",
+      featuredProjectsTitle={isAr ? "مشاريع مختارة" : "Featured Projects"}
+      featuredProjectsButtonText={isAr ? "عرض المشروع" : "View project"}
+      featuredProjects={featured.map((project) => ({
+        slug: project.slug,
+        href: `/${lang}/projects/${project.category}/${project.slug}`,
+        title: isAr ? project.title_ar : project.title_en,
+        location: isAr ? project.location_ar : project.location_en,
+        year: project.year,
+        image: {
+          src: project.cover_image_url,
+          alt: isAr ? project.title_ar : project.title_en,
         },
-        {
-          src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-2.svg",
-          alt: "Descript",
-        },
-        {
-          src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-3.svg",
-          alt: "Mercury",
-        },
-        {
-          src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-4.svg",
-          alt: "Ramp",
-        },
-        {
-          src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-5.svg",
-          alt: "Retool",
-        },
-        {
-          src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-6.svg",
-          alt: "Watershed",
-        }
-      ]}
-      achievementsTitle="Our Achievements in Numbers"
-      achievementsDescription="Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth."
+      }))}
+      achievementsTitle={isAr ? "سجلّنا" : "Our Track Record"}
+      achievementsDescription={
+        isAr
+          ? "استوديو قائم على الخبرة والانتشار والتقدير في قطاع التصميم الداخلي بالمملكة."
+          : "A studio built on scale, heritage, and recognition across Saudi Arabia's design industry."
+      }
       achievements={
-        [
-          { label: "Companies Supported", value: "300+" },
-          { label: "Projects Finalized", value: "800+" },
-          { label: "Happy Customers", value: "99%" },
-          { label: "Recognized Awards", value: "10+" },
-        ]
+        isAr
+          ? [
+              "أكثر من ١٠٠ مشروع في القطاعات السكنية، والتجارية، والضيافة.",
+              "تأسيس الاستوديو في عام 2014 بمدينة جدة، المملكة العربية السعودية.",
+              "سفيرة أحد أكبر معارض INDEX SAUDI ARABIA، أحد أكبر معارض التصميم الداخلي في المملكة.",
+              "سفيرة معرض INTERIORS & FURNITURE SHOW JEDDAH، المتخصص في التصميم والأثاث.",
+              "سفيرة معرض ORGATEC SAUDI ARABIA، المتخصص في تصميم بيئات العمل الحديثة.",
+            ]
+          : [
+              "Over 100 projects across residential, commercial, and hospitality sectors.",
+              "Founded in 2014 in Jeddah, Saudi Arabia.",
+              "Ambassador of INDEX Saudi Arabia, one of the Kingdom's largest interior design exhibitions.",
+              "Ambassador of the Interiors & Furniture Show Jeddah, specialized in design and furniture.",
+              "Ambassador of ORGATEC Saudi Arabia, specialized in modern workplace design.",
+            ]
       }
     />
   );

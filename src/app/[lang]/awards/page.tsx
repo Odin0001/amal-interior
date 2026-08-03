@@ -3,13 +3,15 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { translations, hasLocale, type Locale } from '@/lib/translations'
 import { parseStatValue } from '@/lib/utils'
-import { listAwards } from '@/lib/db/queries'
 import PageHero from '@/components/PageHero'
 import CountUp from '@/components/blocks/CountUp'
 import SpotlightCard from '@/components/blocks/SpotlightCard'
 import LogoLoop, { type LogoLoopItem } from '@/components/blocks/LogoLoop'
 import { ZoomParallax } from '@/components/ui/zoom-parallax'
 import { cn } from '@/lib/utils';
+import { MapPinIcon, BuildingsIcon, MedalIcon } from '@phosphor-icons/react/dist/ssr'
+
+const credentialIcons = [MapPinIcon, BuildingsIcon, MedalIcon, MedalIcon, MedalIcon]
 
 export const dynamic = 'force-dynamic'
 
@@ -63,19 +65,6 @@ export default async function AwardsPage({
 
   const heroTitle = [a.heroTitle, a.heroTitleAccent].filter(Boolean).join(' ')
 
-  const awardRows = await listAwards()
-  const awardsByYear: { year: string; items: { title: string; org: string }[] }[] = []
-  for (const award of awardRows) {
-    const title = isAr ? award.title_ar : award.title_en
-    const org = isAr ? award.org_ar : award.org_en
-    const last = awardsByYear[awardsByYear.length - 1]
-    if (last && last.year === award.year) {
-      last.items.push({ title, org })
-    } else {
-      awardsByYear.push({ year: award.year, items: [{ title, org }] })
-    }
-  }
-
   const pressItem = (name: string): LogoLoopItem => ({
     node: (
       <span className="whitespace-nowrap font-display text-xl lg:text-2xl text-frost/50 hover:text-frost transition-colors">
@@ -88,28 +77,7 @@ export default async function AwardsPage({
     <>
       <PageHero title={heroTitle} dir={dir} />
 
-      {/* Stats */}
-      <section className="bg-glass border-b border-border py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border">
-            {a.stats.map(({ value, label }) => {
-              const { prefix, number, suffix } = parseStatValue(value)
-              return (
-                <div key={label} className="bg-glass p-8 lg:p-10 text-center group hover:bg-surface transition-colors duration-300">
-                  <p className="font-display font-bold text-4xl lg:text-5xl text-frost mb-2">
-                    {prefix}
-                    <CountUp to={number} duration={2} />
-                    {suffix}
-                  </p>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-muted group-hover:text-frost/60 transition-colors">{label}</p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="min-h-screen w-full">
+      <section className=" w-full">
         <div className="relative flex h-[50vh] items-center justify-center">
           {/* Radial spotlight */}
           <div
@@ -120,42 +88,35 @@ export default async function AwardsPage({
               'blur-[30px]',
             )}
           />
-          <h1 className="text-center text-4xl font-bold">
-            Scroll Down for Zoom Parallax
-          </h1>
         </div>
         <ZoomParallax images={images} />
         <div className="h-[50vh]"/>
       </section>
 
-      {/* Awards by year */}
-      <section className="bg-glass py-24 lg:py-36 border-t border-b border-border">
+      {/* Credentials */}
+      <section className="py-24 lg:py-36">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="mb-14">
             <p className="text-frost text-[11px] tracking-[0.35em] uppercase mb-4">
-              {a.awardsLabel}
+              {a.credentialsLabel}
             </p>
-            <h2 className="font-display font-bold text-frost text-3xl lg:text-5xl">{a.awardsTitle}</h2>
+            <h2 className="font-display font-bold text-frost text-3xl lg:text-5xl">{a.credentialsTitle}</h2>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {awardsByYear.map(({ year, items }) => (
-              <SpotlightCard key={year} className="bg-void border border-border">
-                <div className="grid grid-cols-12 gap-4 p-6 lg:p-8">
-                  <div className="col-span-3 sm:col-span-2">
-                    <p className="font-display font-bold text-2xl lg:text-3xl text-frost">{year}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {a.credentials.map((fact, i) => {
+              const CredentialIcon = credentialIcons[i]
+              return (
+                <SpotlightCard key={fact} className="bg-void border border-border h-full">
+                  <div className="flex items-start gap-5 p-6 lg:p-8 h-full">
+                    <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-frost/10">
+                      <CredentialIcon size={22} weight="light" className="text-frost" />
+                    </div>
+                    <p className="text-frost text-base lg:text-lg leading-relaxed pt-2">{fact}</p>
                   </div>
-                  <div className="col-span-9 sm:col-span-10 flex flex-col gap-4">
-                    {items.map(({ title, org }) => (
-                      <div key={`${year}-${title}`} className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-                        <p className="text-frost font-medium text-base lg:text-lg">{title}</p>
-                        <p className="text-muted text-sm">{org}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </SpotlightCard>
-            ))}
+                </SpotlightCard>
+              )
+            })}
           </div>
         </div>
       </section>

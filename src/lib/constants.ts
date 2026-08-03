@@ -1,3 +1,3 @@
-export const PROJECT_CATEGORIES = ['residential', 'hospitality', 'commercial', 'cultural'] as const
+export const PROJECT_CATEGORIES = ['residential', 'commercial', 'governmental'] as const
 
 export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number]

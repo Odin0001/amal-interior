@@ -22,6 +22,19 @@ export async function listProjects(): Promise<Project[]> {
   return (data ?? []) as unknown as Project[]
 }
 
+export async function listFeaturedProjects(limit = 3): Promise<Project[]> {
+  const supabase = getSupabaseAdmin()
+  const { data, error } = await supabase
+    .from('projects')
+    .select('*')
+    .eq('featured', true)
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: false })
+    .limit(limit)
+  if (error) throw new Error(`listFeaturedProjects: ${error.message}`)
+  return (data ?? []) as unknown as Project[]
+}
+
 export async function listProjectsByCategory(category: ProjectCategory): Promise<Project[]> {
   const supabase = getSupabaseAdmin()
   const { data, error } = await supabase
@@ -101,6 +114,7 @@ export type ProjectInput = {
   description_en: string
   description_ar: string
   cover_image_url: string
+  featured: boolean
 }
 
 export async function createProject(input: ProjectInput, galleryImageUrls: string[]): Promise<Project> {

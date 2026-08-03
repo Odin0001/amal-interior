@@ -8,12 +8,11 @@ export const metadata: Metadata = {
   title: 'Projects — AMAL Interior Design Studio',
 }
 
-const CATEGORY_ORDER = ['residential', 'commercial', 'hospitality', 'cultural'] as const
+const CATEGORY_ORDER = ['residential', 'commercial', 'governmental'] as const
 const FALLBACK_IMAGE: Record<(typeof CATEGORY_ORDER)[number], string> = {
   residential: '/hero.jpg',
   commercial: '/project1.jpg',
-  hospitality: '/project4.jpg',
-  cultural: '/project3.jpg',
+  governmental: '/project3.jpg',
 }
 
 export default async function ProjectsPage() {

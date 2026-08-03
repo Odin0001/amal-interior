@@ -49,32 +49,24 @@ async function ensureUniqueSlug(base: string): Promise<string> {
 // Mirrors the PROJECTS array previously hardcoded in src/components/GalleryGrid.tsx
 const SEED_PROJECTS: { title: string; location: string; category: ProjectCategory; year: string; cover: string }[] = [
   { title: 'The Alcott Residence', location: 'Upper West Side, New York', category: 'residential', year: '2024', cover: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80&auto=format&fit=crop' },
-  { title: 'Meridian Hotel Lobby', location: 'Chicago, Illinois', category: 'hospitality', year: '2024', cover: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80&auto=format&fit=crop' },
   { title: 'Grove Creative HQ', location: 'Silver Lake, Los Angeles', category: 'commercial', year: '2023', cover: '/project1.jpg' },
   { title: 'Pemberton Penthouse', location: 'Tribeca, New York', category: 'residential', year: '2023', cover: '/project2.jpg' },
-  { title: 'Haven Wellness Spa', location: 'Aspen, Colorado', category: 'hospitality', year: '2023', cover: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80&auto=format&fit=crop' },
-  { title: 'Cross Street Gallery', location: 'Chelsea, New York', category: 'cultural', year: '2022', cover: '/project3.jpg' },
   { title: 'The Kessler Loft', location: 'Williamsburg, Brooklyn', category: 'residential', year: '2022', cover: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80&auto=format&fit=crop' },
-  { title: 'Forum Members Club', location: 'Mayfair, London', category: 'hospitality', year: '2022', cover: '/project4.jpg' },
   { title: 'Northcutt Villa', location: 'Bel Air, Los Angeles', category: 'residential', year: '2023', cover: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1200&q=80&auto=format&fit=crop' },
-  { title: 'The Hartwell Suite', location: 'South Beach, Miami', category: 'hospitality', year: '2023', cover: '/project5.jpg' },
   { title: 'Solaris Penthouse', location: 'Downtown Dubai', category: 'residential', year: '2024', cover: '/project5.jpg' },
   { title: 'Birchwood Country House', location: 'Cotswolds, England', category: 'residential', year: '2022', cover: 'https://images.unsplash.com/photo-1567016376408-0226e4d0c1ea?w=1200&q=80&auto=format&fit=crop' },
   { title: 'Vesper Restaurant', location: 'West Village, New York', category: 'commercial', year: '2024', cover: '/project6.jpg' },
-  { title: 'Jade Private Club', location: 'Hong Kong', category: 'hospitality', year: '2023', cover: '/img2.jpg' },
   { title: 'The Marlowe Townhouse', location: 'Notting Hill, London', category: 'residential', year: '2023', cover: '/hero.jpg' },
   { title: 'Cascade Retreat', location: 'Lake Como, Italy', category: 'residential', year: '2024', cover: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80&auto=format&fit=crop' },
   { title: 'One Hyde Park Studio', location: 'Knightsbridge, London', category: 'commercial', year: '2022', cover: '/project1.jpg' },
   { title: 'The Fielding Estate', location: 'Greenwich, Connecticut', category: 'residential', year: '2024', cover: '/project2.jpg' },
   { title: 'Atrium Office Park', location: 'Century City, Los Angeles', category: 'commercial', year: '2023', cover: '/project3.jpg' },
-  { title: 'Indigo Beach Club', location: 'Mykonos, Greece', category: 'hospitality', year: '2024', cover: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=1200&q=80&auto=format&fit=crop' },
 ]
 
 const CLIENT_GROUP_CATEGORY: Record<string, ProjectCategory> = {
   'Private Residences': 'residential',
-  'Hospitality & Hotels': 'hospitality',
   'Commercial & Corporate': 'commercial',
-  'Cultural Institutions': 'cultural',
+  'Government & Institutional': 'governmental',
 }
 
 async function seedProjects() {

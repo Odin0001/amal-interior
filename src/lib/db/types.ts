@@ -13,6 +13,7 @@ export type Project = {
   description_ar: string
   cover_image_url: string
   sort_order: number
+  featured: boolean
   created_at: string
 }
 

@@ -2,10 +2,16 @@
 -- Re-running is safe: every statement is guarded with "if not exists" / exception handling.
 
 do $$ begin
-  create type project_category as enum ('residential', 'hospitality', 'commercial', 'cultural');
+  create type project_category as enum ('residential', 'commercial', 'governmental');
 exception
   when duplicate_object then null;
 end $$;
+
+-- Categories were narrowed from 4 (residential/hospitality/commercial/cultural) to 3
+-- (residential/commercial/governmental). Postgres can't drop enum values, so on an
+-- existing install this just adds the new value — 'hospitality' and 'cultural' remain
+-- defined-but-unused on the type; the app never selects them once no rows reference them.
+alter type project_category add value if not exists 'governmental';
 
 create table if not exists projects (
   id uuid primary key default gen_random_uuid(),
@@ -20,8 +26,11 @@ create table if not exists projects (
   description_ar text not null default '',
   cover_image_url text not null,
   sort_order integer not null default 0,
+  featured boolean not null default false,
   created_at timestamptz not null default now()
 );
+
+alter table projects add column if not exists featured boolean not null default false;
 
 create table if not exists project_images (
   id uuid primary key default gen_random_uuid(),

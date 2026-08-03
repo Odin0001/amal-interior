@@ -31,14 +31,11 @@ export default async function Home({
 
         {/* Intro + AboutBlock */}
         <section className="bg-void">
-          <AboutBlock />
+          <AboutBlock lang={lang as Locale} />
         </section>
 
         {/* Recent Projects */}
         <ArchScroll />
-
-        {/* Services Teaser */}
-        <RecentProjects />
 
         {/* Pull Quote */}
         <section className="bg-void py-24 lg:py-40">

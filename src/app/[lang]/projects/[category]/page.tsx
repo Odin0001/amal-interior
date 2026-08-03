@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { category } = await params
   const label = category.charAt(0).toUpperCase() + category.slice(1)
   return {
-    title: `${label} Projects — AMAL Interior Design Studio`,
+    title: `${label} Projects - AMAL Interior Design Studio`,
   }
 }
 

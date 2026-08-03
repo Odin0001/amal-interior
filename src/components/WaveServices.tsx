@@ -275,14 +275,14 @@ export default function WaveServices({ services }: { services: ServiceSlide[] })
 
       {/* Centered text strip — overflow-hidden reveals one heading at a time */}
       <div
-        className="absolute left-[5%] w-[90%] sm:left-[15%] sm:w-[70%] top-1/2 overflow-hidden pointer-events-none"
-        style={{ height: TEXT_H, marginTop: -TEXT_H / 2 }}
+        className="absolute left-[5%] top-1/2 w-[90%] overflow-hidden border border-white/10 bg-black/60 px-4 py-3 shadow-[0_0_40px_rgba(0,0,0,0.35)] backdrop-blur-sm pointer-events-none sm:left-[15%] sm:w-[70%] sm:px-6 sm:py-4"
+        style={{ height: TEXT_H, marginTop: -TEXT_H / 2, boxSizing: 'border-box' }}
       >
         {services.map((service, i) => (
           <div
             key={i}
             ref={el => { headingRefs.current[i] = el }}
-            className="flex items-center justify-between text-white"
+            className="flex items-center justify-between px-2 text-white sm:px-4 pb-8"
             style={{ height: TEXT_H }}
           >
             <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wider truncate">

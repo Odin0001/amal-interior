@@ -2,7 +2,7 @@ const Hero = () => (
   <div id="hero-container" className="absolute inset-0">
     <video
       className="w-full h-full object-cover"
-      src="/hero-vid.mp4"
+      src="/hero-vid.webm"
       poster="/hero.jpg"
       autoPlay
       muted

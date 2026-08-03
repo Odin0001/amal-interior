@@ -18,6 +18,7 @@ export type ProjectDefaultValues = {
   description_en: string
   description_ar: string
   cover_image_url?: string
+  featured?: boolean
 }
 
 export default function ProjectForm({
@@ -151,6 +152,19 @@ export default function ProjectForm({
           <img src={defaultValues.cover_image_url} alt="" className="w-40 h-28 object-cover mb-2 border border-border" />
         )}
         <input id="cover" name="cover" type="file" accept="image/*" className={inputClass} />
+      </div>
+
+      <div className="flex items-center gap-2">
+        <input
+          id="featured"
+          name="featured"
+          type="checkbox"
+          defaultChecked={defaultValues?.featured ?? false}
+          className="size-4"
+        />
+        <label htmlFor="featured" className="text-sm text-frost cursor-pointer">
+          Feature on homepage (shows in the top 3 featured projects)
+        </label>
       </div>
 
       <div>

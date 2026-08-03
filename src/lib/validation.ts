@@ -10,6 +10,7 @@ export const projectSchema = z.object({
   year: z.string({ error: 'Year is required.' }).trim().min(4, { error: 'Enter a valid year.' }).max(4, { error: 'Enter a valid year.' }),
   description_en: z.string().trim().default(''),
   description_ar: z.string().trim().default(''),
+  featured: z.boolean().default(false),
 })
 
 export type ProjectFormValues = z.infer<typeof projectSchema>

@@ -26,6 +26,7 @@ function readProjectFields(formData: FormData) {
     year: formData.get('year'),
     description_en: formData.get('description_en') ?? '',
     description_ar: formData.get('description_ar') ?? '',
+    featured: formData.get('featured') === 'on',
   }
 }
 

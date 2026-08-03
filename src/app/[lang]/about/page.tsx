@@ -5,6 +5,16 @@ import { notFound } from 'next/navigation'
 import { translations, hasLocale, type Locale } from '@/lib/translations'
 import { Timeline } from '@/components/ui/timeline'
 import AboutHero from '@/components/AboutHero'
+import {
+  LightbulbIcon,
+  SealCheckIcon,
+  MagnifyingGlassIcon,
+  UsersThreeIcon,
+  SparkleIcon,
+  HandshakeIcon,
+} from '@phosphor-icons/react/dist/ssr'
+
+const valueIcons = [LightbulbIcon, SealCheckIcon, MagnifyingGlassIcon, UsersThreeIcon, SparkleIcon, HandshakeIcon]
 
 export const metadata: Metadata = {
   title: 'About — AMAL Interior Design Studio',
@@ -38,6 +48,10 @@ export default async function AboutPage({
     [
       { src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&auto=format&fit=crop', alt: 'Bespoke sofa' },
       { src: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&auto=format&fit=crop', alt: 'Craftsmanship detail' },
+    ],
+    [
+      { src: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&auto=format&fit=crop', alt: 'Award project' },
+      { src: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600&auto=format&fit=crop', alt: 'Studio team' },
     ],
     [
       { src: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&auto=format&fit=crop', alt: 'Award project' },
@@ -85,13 +99,10 @@ export default async function AboutPage({
       <AboutHero />
 
       {/* Story */}
-      <section className="bg-glass py-24 lg:py-36 border-b border-border">
+      <section className="py-24 lg:py-36">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
             <div className="lg:col-span-5">
-              <p className="text-frost text-[11px] tracking-[0.4em] uppercase mb-6">
-                {a.originLabel}
-              </p>
               <h2 className="font-display font-bold text-frost text-3xl lg:text-4xl leading-[1.1]">
                 {a.originTitle}
               </h2>
@@ -99,44 +110,67 @@ export default async function AboutPage({
             <div className="lg:col-span-6 lg:col-start-7">
               <p className="text-muted text-lg leading-relaxed mb-6">{a.storyP1}</p>
               <p className="text-muted text-lg leading-relaxed mb-6">{a.storyP2}</p>
-              <p className="text-muted text-lg leading-relaxed">{a.storyP3}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Image Banner */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-12 py-8">
-        <div className="aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] bg-gradient-to-br from-stone-950 via-neutral-900 to-stone-950 w-full relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-void/50 via-transparent to-transparent" />
-          <div className="absolute bottom-8 left-10">
-            <p className="text-frost/30 text-xs tracking-widest uppercase">
-              {a.studioCaption}
-            </p>
+      {/* Mission & Vision */}
+      <section className="py-24 lg:py-36">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+            <div>
+              <div className="aspect-[4/3] w-full overflow-hidden mb-8">
+                <img
+                  src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=900&auto=format&fit=crop"
+                  alt={a.missionImageAlt}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <h3 className="font-display font-bold text-frost text-2xl lg:text-3xl mb-4">
+                {a.missionTitle}
+              </h3>
+              <p className="text-muted text-lg leading-relaxed">{a.missionBody}</p>
+            </div>
+
+            <div>
+              <div className="aspect-[4/3] w-full overflow-hidden mb-8">
+                <img
+                  src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&auto=format&fit=crop"
+                  alt={a.visionImageAlt}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="font-display font-bold text-frost text-2xl lg:text-3xl mb-4">
+                {a.visionTitle}
+              </h3>
+              <p className="text-muted text-lg leading-relaxed">{a.visionBody}</p>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Principles */}
+      {/* Values */}
       <section className="bg-void py-24 lg:py-36">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="mb-16">
-            <p className="text-frost text-[11px] tracking-[0.4em] uppercase mb-4">
-              {a.principlesLabel}
-            </p>
             <h2 className="font-display font-bold text-frost text-3xl lg:text-5xl">
-              {a.principlesTitle}
+              {a.valuesTitle}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
-            {a.principles.map(({ num, title, desc }) => (
-              <div key={num} className="bg-void p-8 lg:p-12 group hover:bg-glass transition-colors duration-300">
-                <p className="text-frost/30 text-xs tracking-[0.3em] mb-8 group-hover:text-frost/60 transition-colors">{num}</p>
-                <h3 className="font-display font-bold text-2xl text-frost group-hover:text-frost mb-5 transition-colors">{title}</h3>
-                <p className="text-muted text-sm leading-relaxed">{desc}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+            {a.values.map(({ title, desc }, i) => {
+              const ValueIcon = valueIcons[i]
+              return (
+                <div key={title} className="bg-void p-8 lg:p-12 group hover:bg-glass transition-colors duration-300">
+                  <ValueIcon size={32} weight="light" className="text-frost/60 mb-8 group-hover:text-frost transition-colors" />
+                  <h3 className="font-display font-bold text-2xl text-frost group-hover:text-frost mb-5 transition-colors">{title}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{desc}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -145,31 +179,7 @@ export default async function AboutPage({
 
       {/* Timeline */}
       <section className="bg-void py-24 lg:py-36">
-        {/* <div className="mx-auto max-w-7xl px-6 lg:px-12">
-          <div className="mb-14">
-            <p className="text-frost text-[11px] tracking-[0.4em] uppercase mb-4">
-              {a.milestonesLabel}
-            </p>
-            <h2 className="font-display font-bold text-frost text-3xl lg:text-5xl">
-              {a.milestonesTitle}
-            </h2>
-          </div>
 
-          <div className="flex flex-col divide-y divide-border">
-            {a.milestones.map(({ year, event }) => (
-              <div key={year} className="grid grid-cols-12 gap-6 py-7 group hover:bg-glass/40 transition-colors px-4 -mx-4">
-                <div className="col-span-3 sm:col-span-2">
-                  <p className="font-display font-bold text-2xl text-frost">{year}</p>
-                </div>
-                <div className="col-span-9 sm:col-span-10 flex items-center">
-                  <p className="text-muted text-base lg:text-lg group-hover:text-frost/80 transition-colors">
-                    {event}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
         <Timeline data={data} />
       </section>
 

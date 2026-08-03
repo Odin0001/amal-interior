@@ -25,14 +25,14 @@ export default function ProjectCategories({ categories }: { categories: Category
 
   return (
     <div className="min-h-screen bg-void pt-[72px]">
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 sm:h-[calc(100vh-72px)] gap-px bg-frost/20">
+      <div className="grid grid-cols-1 lg:grid-cols-3 lg:h-[calc(100vh-72px)] gap-px bg-frost/20">
         {categories.map((cat, i) => {
           const label = t.projects.categories[cat.slug as CategorySlug]
           return (
             <div
               key={cat.slug}
               ref={el => { cardsRef.current[i] = el }}
-              className="group relative overflow-hidden h-[55vh] sm:h-auto cursor-pointer bg-void"
+              className="group relative overflow-hidden h-[55vh] lg:h-auto cursor-pointer bg-void"
             >
               {/* Transparent link overlay — captures clicks across the full card */}
               <Link

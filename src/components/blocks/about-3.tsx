@@ -1,93 +1,80 @@
 import { Button } from "@/components/ui/button";
+import { CheckCircleIcon } from "@phosphor-icons/react/dist/ssr";
+
+interface FeaturedProject {
+  slug: string;
+  href: string;
+  title: string;
+  location: string;
+  year: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+}
 
 interface About3Props {
   title?: string;
   description?: string;
-  mainImage?: {
-    src: string;
-    alt: string;
-  };
-  secondaryImage?: {
-    src: string;
-    alt: string;
-  };
-  breakout?: {
-    src: string;
-    alt: string;
-    title?: string;
-    description?: string;
-    buttonText?: string;
-    buttonUrl?: string;
-  };
-  companiesTitle?: string;
-  companies?: Array<{
-    src: string;
-    alt: string;
-  }>;
+  featuredProjectsTitle?: string;
+  featuredProjectsDescription?: string;
+  featuredProjectsButtonText?: string;
+  featuredProjects?: FeaturedProject[];
   achievementsTitle?: string;
   achievementsDescription?: string;
-  achievements?: Array<{
-    label: string;
-    value: string;
-  }>;
+  achievements?: string[];
 }
 
-const defaultCompanies = [
-  {
-    src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-1.svg",
-    alt: "Arc",
-  },
-  {
-    src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-2.svg",
-    alt: "Descript",
-  },
-  {
-    src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-3.svg",
-    alt: "Mercury",
-  },
-  {
-    src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-4.svg",
-    alt: "Ramp",
-  },
-  {
-    src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-5.svg",
-    alt: "Retool",
-  },
-  {
-    src: "https://shadcnblocks.com/images/block/logos/company/fictional-company-logo-6.svg",
-    alt: "Watershed",
-  },
+const defaultAchievements = [
+  "300+ companies supported across every stage of growth.",
+  "800+ projects finalized on time and on budget.",
+  "99% client satisfaction across completed engagements.",
+  "10+ industry awards recognizing our work.",
 ];
 
-const defaultAchievements = [
-  { label: "Companies Supported", value: "300+" },
-  { label: "Projects Finalized", value: "800+" },
-  { label: "Happy Customers", value: "99%" },
-  { label: "Recognized Awards", value: "10+" },
+const defaultFeaturedProjects: FeaturedProject[] = [
+  {
+    slug: "placeholder-1",
+    href: "#",
+    title: "Placeholder Project One",
+    location: "Location",
+    year: "2024",
+    image: {
+      src: "https://shadcnblocks.com/images/block/placeholder-1.svg",
+      alt: "placeholder",
+    },
+  },
+  {
+    slug: "placeholder-2",
+    href: "#",
+    title: "Placeholder Project Two",
+    location: "Location",
+    year: "2024",
+    image: {
+      src: "https://shadcnblocks.com/images/block/placeholder-2.svg",
+      alt: "placeholder",
+    },
+  },
+  {
+    slug: "placeholder-3",
+    href: "#",
+    title: "Placeholder Project Three",
+    location: "Location",
+    year: "2024",
+    image: {
+      src: "https://shadcnblocks.com/images/block/placeholder-1.svg",
+      alt: "placeholder",
+    },
+  },
 ];
 
 export const About3 = ({
   title = "About Us",
   description = "Shadcnblocks is a passionate team dedicated to creating innovative solutions that empower businesses to thrive in the digital age.",
-  mainImage = {
-    src: "https://shadcnblocks.com/images/block/placeholder-1.svg",
-    alt: "placeholder",
-  },
-  secondaryImage = {
-    src: "https://shadcnblocks.com/images/block/placeholder-2.svg",
-    alt: "placeholder",
-  },
-  breakout = {
-    src: "https://shadcnblocks.com/images/block/block-1.svg",
-    alt: "logo",
-    title: "Hundreds of blocks at Shadcnblocks.com",
-    description:
-      "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
-    buttonText: "Discover more",
-    buttonUrl: "https://shadcnblocks.com",
-  },
-  companiesTitle = "Valued by clients worldwide",
-  companies = defaultCompanies,
+  featuredProjectsTitle = "Featured Projects",
+  featuredProjectsDescription,
+  featuredProjectsButtonText = "View project",
+  featuredProjects = defaultFeaturedProjects,
   achievementsTitle = "Our Achievements in Numbers",
   achievementsDescription = "Providing businesses with effective tools to improve workflows, boost efficiency, and encourage growth.",
   achievements = defaultAchievements,
@@ -99,46 +86,35 @@ export const About3 = ({
           <h1 className="text-3xl md:text-5xl font-semibold">{title}</h1>
           <p className="text-muted-foreground">{description}</p>
         </div>
-        <div className="grid gap-7 lg:grid-cols-3">
-          <img
-            src={mainImage.src}
-            alt={mainImage.alt}
-            className="size-full max-h-[620px] object-cover lg:col-span-2"
-          />
-          <div className="flex flex-col gap-7 md:flex-row lg:flex-col">
-            <div className="flex flex-col justify-between gap-6 bg-glass p-7 md:w-1/2 lg:w-auto">
-              <img
-                src={breakout.src}
-                alt={breakout.alt}
-                className="mr-auto h-12"
-              />
-              <div>
-                <p className="mb-2 text-lg font-semibold">{breakout.title}</p>
-                <p className="text-muted-foreground">{breakout.description}</p>
-              </div>
-              <Button variant="outline" className="mr-auto" asChild>
-                <a href={breakout.buttonUrl} target="_blank">
-                  {breakout.buttonText}
-                </a>
-              </Button>
-            </div>
-            <img
-              src={secondaryImage.src}
-              alt={secondaryImage.alt}
-              className="grow basis-0 object-cover md:w-1/2 lg:min-h-0 lg:w-auto"
-            />
+        <div className="mb-14">
+          <div className="mb-8 gap-5 text-center">
+            <h2 className="text-3xl md:text-5xl font-semibold">
+              {featuredProjectsTitle}
+            </h2>
+
           </div>
-        </div>
-        <div className="py-32">
-          <p className="text-center">{companiesTitle} </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-8">
-            {companies.map((company, idx) => (
-              <div className="flex items-center gap-3" key={company.src + idx}>
+          <div className="grid gap-7 md:grid-cols-3">
+            {featuredProjects.map((project) => (
+              <div
+                key={project.slug}
+                className="flex flex-col gap-4 bg-glass"
+              >
                 <img
-                  src={company.src}
-                  alt={company.alt}
-                  className="h-6 w-auto md:h-8"
+                  src={project.image.src}
+                  alt={project.image.alt}
+                  className="aspect-[4/3] w-full object-cover"
                 />
+                <div className="flex flex-col gap-3 p-6 pt-0">
+                  <div>
+                    <p className="text-lg font-semibold">{project.title}</p>
+                    <p className="text-muted-foreground">
+                      {project.location} — {project.year}
+                    </p>
+                  </div>
+                  <Button variant="outline" className="mr-auto" asChild>
+                    <a href={project.href}>{featuredProjectsButtonText}</a>
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
@@ -150,13 +126,13 @@ export const About3 = ({
               {achievementsDescription}
             </p>
           </div>
-          <div className="mt-10 flex flex-wrap justify-between gap-10 text-center">
-            {achievements.map((item, idx) => (
-              <div className="flex flex-col gap-4" key={item.label + idx}>
-                <p className="text-xl">{item.label}</p>
-                <span className="text-4xl font-semibold md:text-5xl">
-                  {item.value}
-                </span>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {achievements.map((fact, idx) => (
+              <div className="flex items-start gap-4 bg-glass p-6" key={idx}>
+                <CheckCircleIcon size={22} weight="light" className="mt-1 shrink-0" />
+                <p className="text-start text-base leading-relaxed text-muted-foreground">
+                  {fact}
+                </p>
               </div>
             ))}
           </div>

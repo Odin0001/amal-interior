@@ -6,6 +6,16 @@ import PageHero from '@/components/PageHero'
 import SpotlightCard from '@/components/blocks/SpotlightCard'
 import LogoLoop, { type LogoLoopItem } from '@/components/blocks/LogoLoop'
 import ElegantCarousel from '@/components/ui/ElegentCarousel'
+import {
+  MagnifyingGlassIcon,
+  BookOpenTextIcon,
+  LightbulbIcon,
+  CubeIcon,
+  RulerIcon,
+  HardHatIcon,
+} from '@phosphor-icons/react/dist/ssr'
+
+const processIcons = [MagnifyingGlassIcon, BookOpenTextIcon, LightbulbIcon, CubeIcon, RulerIcon, HardHatIcon]
 
 export const metadata: Metadata = {
   title: 'Collaboration — AMAL Interior Design Studio',
@@ -41,22 +51,27 @@ export default async function CollaborationPage({
       <section className="bg-glass py-24 lg:py-36 border-t border-b border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <div className="mb-16">
-            <p className="text-frost text-[11px] tracking-[0.4em] uppercase mb-4">
-              {c.processLabel}
-            </p>
             <h2 className="font-display font-bold text-frost text-3xl lg:text-5xl">
               {c.processTitle}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {c.process.map(({ step, title, desc }) => (
-              <SpotlightCard key={step} className="bg-glass border border-border p-8">
-                <p className="font-display font-bold text-4xl text-frost/30 mb-6">{step}</p>
-                <h3 className="font-display font-bold text-xl text-frost mb-4">{title}</h3>
-                <p className="text-muted text-sm leading-relaxed">{desc}</p>
-              </SpotlightCard>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {c.process.map(({ step, title, desc }, i) => {
+              const StepIcon = processIcons[i]
+              return (
+                <SpotlightCard key={step} className="bg-glass border border-border p-8">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-frost/10">
+                      <StepIcon size={22} weight="light" className="text-frost" />
+                    </div>
+                    <p className="font-display font-bold text-2xl text-frost/30">{step}</p>
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-frost mb-4">{title}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{desc}</p>
+                </SpotlightCard>
+              )
+            })}
           </div>
         </div>
       </section>
